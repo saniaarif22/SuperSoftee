@@ -1,2 +1,4 @@
 # SuperSoftee
 Web portal for an ice-cream truck management company using Java's play framework, securesocial and the facebook api for authentication and mongodb as the database.
+
+The primary use of this web portal will be to place orders for ice-cream trucks suited to the user’s demand. Users can place bulk orders for ice-cream or call an ice-cream van from the fleet of vans for their event. The portal caters to two different categories of customers, including business clients and naive customers involving B2B and B2C relationships. The users will have a facility to input their required budget and can select the different varieties of ice-creams they want to include, their sizes and quantity. Both third party suppliers as well as naive customers can tailor their order according to their needs.
