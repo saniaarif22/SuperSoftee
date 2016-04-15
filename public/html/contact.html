@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Contact - Business Casual - Start Bootstrap Theme</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <link href="../css/superSoftee.css" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!--Angular-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.2/angular.js"></script>
+
+    <!--Angular Routes-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.2/angular-route.min.js"></script>
+
+    <script>
+        // create angular app
+        var appCtrls = angular.module('ssApp', ['ngRoute']);
+
+        // create angular controller
+        validationApp.controller('mainController', function($scope) {
+
+
+
+        });
+
+    </script>
+</head>
+<body ng-app="ssApp" ng-controller="mainController">
+
+    <div class="brand">Super Softee</div>
+    <div class="address-bar">3481 Melrose Place | New York NY 10027 | 123.456.7890</div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!-- navbar-brand is hidden on larger screens, but visible when the menu is collapsed -->
+                <a class="navbar-brand" href="/assets/html/index.html">Super Softee</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    <li>
+                        <a href="/assets/html/menu.html">Menu</a>
+                    </li>
+                    <li>
+                        <a href="/assets/html/order.html">Order</a>
+                    </li>
+                    <li>
+                        <a href="/assets/html/contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="box">
+                <div class="col-lg-12">
+                    <hr>
+                    <h2 class="intro-text text-center">Super Softee
+                        <strong>Event Calendar</strong>
+                    </h2>
+                    <hr>
+                </div>
+                <div class="col-md-8">
+                    <!-- Embedded Google Calendar using an iframe -->
+                    <iframe src="https://calendar.google.com/calendar/embed?src=q0l7pjdncarqncmnlcp1emo71g%40group.calendar.google.com&ctz=America/New_York" style="border: 0" width="1100" height="600" frameborder="0" scrolling="no"></iframe>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="box">
+                <div class="col-lg-12">
+                    <hr>
+                    <h2 class="intro-text text-center">Contact
+                        <strong>form</strong>
+                    </h2>
+                    <hr>
+                    <p>Your feedback is valuable to us. Please feel free to drop us a message about your experience with Super Softee.</p>
+                    <form name="contactform" role="form" action="/enterfeedback">
+                        <div class="row">
+                            <div class="form-group col-lg-4" ng-class="{ 'has-error' : contactform.customerName.$invalid && !contactform.customerName.$pristine}">
+                                <label>Name</label>
+                                <input type="text" name="customerName" id="customerName" class="form-control" ng-pattern="/^[a-zA-Z\_\- ]*$/" ng-model="contact.customerName" required>
+                                <p ng-show="contactform.customerName.$error.pattern" class="help-block">Invalid Name. Letters only.</p>
+                            </div>
+                            <div class="form-group col-lg-4" ng-class="{ 'has-error' : contactform.customerEmail.$invalid&&!contactform.customerEmail.$pristine}">
+                                <label>Email Address</label>
+                                <input type="email" name="customerEmail" id="customerEmail" class="form-control" ng-model="contact.customerEmail" required>
+                                <p ng-show="contactform.customerEmail.$invalid&&!contactform.customerEmail.$pristine" class="help-block">Invalid Email</p>
+                            </div>
+                            <div class="form-group col-lg-4" ng-class="{ 'has-error' : contactform.phoneNumber.$invalid &&!contactform.phoneNumber.$pristine}">
+                                <label>Phone Number</label>
+                                <input type="number" name="phoneNumber" class="form-control" id="phoneNumber" ng-model="contact.phoneNumber" required  ng-maxlength="10" ng-minlength="10">
+                                <p ng-show="contactform.phoneNumber.$error.minlength" class="help-block">Phone number is too short.</p>
+                                <p ng-show="contactform.phoneNumber.$error.maxlength" class="help-block">Phone number is too long.</p>
+                        </div>
+                            <div class="clearfix"></div>
+                            <div class="form-group col-lg-12">
+                                <label>Message</label>
+                                <textarea class="form-control" name="message" id="message" rows="6" ng-model="contact.message" required></textarea>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <input type="hidden" name="save" value="contact">
+                                <button type="submit" class="btn btn-default" ng-disabled="contactform.$invalid">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container -->
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <p>Copyright &copy; Super Softee Website 2015</p>
+                    <p><a href="/auth/authenticate/facebook"> Admin Login </a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // create angular app
+        var validationApp = angular.module('validationApp', []);
+
+        // create angular controller
+        validationApp.controller('mainController', function($scope) {
+
+            // function to submit the form after all validation has occurred
+            $scope.submitForm = function(isValid) {
+
+                // check to make sure the form is completely valid
+                if (isValid) {
+                    alert('our form is amazing');
+                }
+
+            };
+
+        });
+
+    </script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha256-Sk3nkD6mLTMOF0EOpNtsIry+s1CsaqQC1rVLTAy+0yc= sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+
+    <!--Our JS-->
+    <-- <script src="../js/controllers.js"></script> -->
+
+</body>
+
+</html>

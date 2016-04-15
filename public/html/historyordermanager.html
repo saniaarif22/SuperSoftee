@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="assets/img/favicon.ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Light Bootstrap Dashboard by Creative Tim</title>
+
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- Bootstrap Core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+
+    <!-- Animation library for notifications   -->
+    <link href="../css/animate.min.css" rel="stylesheet"/>
+
+    <!--  Light Bootstrap Table core CSS    -->
+    <link href="../css/light-bootstrap-dashboard.css" rel="stylesheet"/>
+
+
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <link href="../css/demo.css" rel="stylesheet" />
+
+
+    <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="../css/pe-icon-7-stroke.css" rel="stylesheet" />
+
+</head>
+<body ng-app="ssApp" ng-controller="ssFinish">
+
+<div class="wrapper">
+    <div class="sidebar" data-color="purple" data-image="assets/img/sidebar-5.jpg">
+
+        <!--
+
+            Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+            Tip 2: you can also add an image using data-image tag
+
+        -->
+
+        <div class="sidebar-wrapper" ng-controller="sidebarCtrl">
+            <div class="logo">
+                <a href="" class="simple-text">
+                    Welcome {{userInfo.type + " " + userInfo.name}}
+
+                    <img ng-src="{{userInfo.avatarUrl}}" class="img-responsive center-block"
+                         style="border-width: 4px !important; border-style: solid; border-color: plum ;" />
+                </a>
+            </div>
+
+            <ul class="nav">
+                <li>
+                    <a href="managerDashboard.html">
+                        <i class="pe-7s-graph"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="table.html">
+                        <i class="pe-7s-note2"></i>
+                        <p>Events</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="approvedordermanager.html">
+                        <i class="pe-7s-note2"></i>
+                        <p>Approved Events</p>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="historyordermanager.html">
+                        <i class="pe-7s-note2"></i>
+                        <p>History Events</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="feedbacktable.html">
+                        <i class="pe-7s-note2"></i>
+                        <p>Feedback</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="supply.html">
+                        <i class="pe-7s-note2"></i>
+                        <p>Supply Order</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-panel">
+        <nav class="navbar navbar-default navbar-fixed">
+            <div class="container-fluid">
+
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="user.html">
+                                Account
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/auth/logout">
+                                Log out
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">List of Finished Events</h4>
+                                <p class="category">Events finished by truck drivers:</p>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <form name="approveform">
+                                    <table class="table table-hover table-striped" >
+                                        <thead>
+                                        <th>Name</th>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th>Address</th>
+                                        <th>Phone Number</th>
+                                        <th>Coupon Code</th>
+                                        </thead>
+                                        <tbody ng-repeat="order in finishedorders" ng-cloak>
+                                        <tr>
+                                            <td>{{order.oName}}</td>
+                                            <td>{{order.oDate}}</td>
+                                            <td>{{order.oTime}}</td>
+                                            <td>{{order.oAddress}}</td>
+                                            <td>{{order.oPhoneNumber}}</td>
+                                            <td>{{order.oCoupon}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container-fluid">
+
+                <p class="copyright pull-right">
+                    &copy; 2015 Super Softee
+                </p>
+            </div>
+        </footer>
+
+
+    </div>
+</div>
+
+
+</body>
+
+<!-- jQuery -->
+<-- <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script> -->
+
+<!-- Bootstrap Core JavaScript -->
+<-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha256-Sk3nkD6mLTMOF0EOpNtsIry+s1CsaqQC1rVLTAy+0yc= sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script> -->
+
+<!--  Checkbox, Radio & Switch Plugins -->
+<-- <script src="../js/bootstrap-checkbox-radio-switch.js"></script> -->
+
+<!--  Charts Plugin -->
+<-- <script src="../js/chartist.min.js"></script> -->
+
+<!--  Notifications Plugin    -->
+<-- <script src="../js/bootstrap-notify.js"></script> -->
+
+<!--  Google Maps Plugin    -->
+<-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
+
+<!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+<-- <script src="../js/light-bootstrap-dashboard.js"></script> -->
+
+<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+<-- <script src="../js/demo.js"></script> -->
+
+<!--Angular-->
+<-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.2/angular.js"></script> -->
+
+<!--Angular Routes-->
+<-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.2/angular-route.min.js"></script> -->
+
+<!--Our JS-->
+<-- <script src="../js/controllers.js"></script> -->
+
+</html>

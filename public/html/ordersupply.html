@@ -1,0 +1,484 @@
+
+<!doctype html>
+<html lang="en" ng-app="ssApp">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="../../../../Desktop/dashboard/assets/img/favicon.ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Hello, Truck Driver</title>
+
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+
+    <!-- Bootstrap Core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+
+    <!-- Animation library for notifications   -->
+    <link href="../css/animate.min.css" rel="stylesheet"/>
+
+    <!--  Light Bootstrap Table core CSS    -->
+    <link href="../css/light-bootstrap-dashboard.css" rel="stylesheet"/>
+
+
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <link href="../css/demo.css" rel="stylesheet" />
+
+
+    <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="../css/pe-icon-7-stroke.css" rel="stylesheet" />
+</head>
+<body ng-controller="ssOrder">
+
+<div class="wrapper">
+    <div class="sidebar" data-color="blue" data-image="assets/img/sidebar-5.jpg">
+
+        <!--
+
+        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+        Tip 2: you can also add an image using data-image tag
+
+        -->
+
+        <div class="sidebar-wrapper" ng-controller="sidebarCtrl">
+            <div class="logo">
+                <a href="" class="simple-text">
+                    Welcome {{userInfo.type + " " + userInfo.name}}
+
+                    <img ng-src="{{userInfo.avatarUrl}}" class="img-responsive center-block"
+                         style="border-width: 4px !important; border-style: solid; border-color: #42d0ed ;" />
+                </a>
+            </div>
+
+            <ul class="nav">
+                <li>
+                    <a href="truckDriverDashboard.html">
+                        <i class="pe-7s-graph"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="tabletruckdriver.html">
+                        <i class="pe-7s-note2"></i>
+                        <p>Approved Events</p>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="ordersupply.html">
+                        <i class="pe-7s-note2"></i>
+                        <p>Supply History</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="ordersupplyplaced.html">
+                        <i class="pe-7s-note2"></i>
+                        <p>Order Supply</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-panel">
+        <nav class="navbar navbar-default navbar-fixed">
+            <div class="container-fluid">
+
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="user.html">
+                                Account
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/auth/logout">
+                                Log out
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Order Suppliment list</h4>
+                                <p class="category">Make an order for tomorrow</p>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+
+                                <form role="form" action="/orderSupply">
+
+                                    <table class="table table-hover table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th colspan="2"></th>
+                                            <!-- We can have more than one driver for each day so "colspan" needs to be -->
+                                            <!-- set to the number of drivers for that day (length of the array for that day) -->
+                                            <th ng-repeat="day in days" align="center" colspan="{{dailyOrders[day].length}}">{{day}}</th>
+                                            <!-- add a blank space for Total which will be on the next row -->
+                                            <th></th>
+                                        </tr>
+                                        <tr>
+                                            <th>Item</th>
+                                            <th>Price</th>
+                                            <!-- angular doesn't really allow for nested repeats so while we used -->
+                                            <!-- dailyOrders above which has one array for each day, we need to use -->
+                                            <!-- allDailyOrders here which is a "flat" array with every order -->
+                                            <th ng-repeat="order in allDailyOrders">{{order.driverName}}</th>
+                                            <!-- Column for totals -->
+                                            <th>Total</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        <tr>
+                                            <td>Small Flat Cones(Kid Cone)</td>
+                                            <td>$6.50</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.kidCone}}</td>
+                                            <td>{{totalOrders.kidCone}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Small Pointed Cones</td>
+                                            <td>$14.50</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.smallCones}}</td>
+                                            <td>{{totalOrders.smallCones}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Twin Cones (Double Cone)</td>
+                                            <td>$14.50</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.doubleCone}}</td>
+                                            <td>{{totalOrders.doubleCone}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Waffle Cones</td>
+                                            <td>$6.00</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.waffleCones}}</td>
+                                            <td>{{totalOrders.waffleCones}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Cartwheels</td>
+                                            <td>$5.00</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.cartweels}}</td>
+                                            <td>{{totalOrders.cartweels}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Simple Syrup</td>
+                                            <td>$12.00</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.simpleSyrup}}</td>
+                                            <td>{{totalOrders.simpleSyrup}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Chocolate Syrup</td>
+                                            <td>$15.00</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.chocolateSyrup}}</td>
+                                            <td>{{totalOrders.chocolateSyrup}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Vanilla Syrup</td>
+                                            <td>$13.50</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.vanillaSyrup}}</td>
+                                            <td>{{totalOrders.vanillaSyrup}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Strawberry Shake</td>
+                                            <td>$17.50</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.strawberryShakeBase}}</td>
+                                            <td>{{totalOrders.strawberryShakeBase}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Wet Walnuts</td>
+                                            <td>$29.00</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.wetWalnuts}}</td>
+                                            <td>{{totalOrders.wetWalnuts}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Whole Cherries</td>
+                                            <td>$18.50</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.wholeCherries}}</td>
+                                            <td>{{totalOrders.wholeCherries}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Topping Strawberry</td>
+                                            <td>$17.50</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.toppingStrawberry}}</td>
+                                            <td>{{totalOrders.toppingStrawberry}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Topping Pineapple</td>
+                                            <td>$16.25</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.toppingPineapple}}</td>
+                                            <td>{{totalOrders.toppingPineapple}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Topping Butterscotch</td>
+                                            <td>$16.00</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.toppingButterscotch}}</td>
+                                            <td>{{totalOrders.toppingButterscotch}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Topping Cruched Cherry</td>
+                                            <td>$17.00</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.toppingCruchedCherry}}</td>
+                                            <td>{{totalOrders.toppingCruchedCherry}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>3 oz Dixie Cups</td>
+                                            <td>$5.00</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.smallDixieCups}}</td>
+                                            <td>{{totalOrders.smallDixieCups}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>5 oz Dixie Cups</td>
+                                            <td>$5.50</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.largeDixieCups}}</td>
+                                            <td>{{totalOrders.largeDixieCups}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>12 oz Cups</td>
+                                            <td>$6.00</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.ozCups}}</td>
+                                            <td>{{totalOrders.ozCups}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Milk Shake Cups</td>
+                                            <td>$6.50</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.milkShakeCups}}</td>
+                                            <td>{{totalOrders.milkShakeCups}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Sundae Cups</td>
+                                            <td>$10.50</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.sundaeCups}}</td>
+                                            <td>{{totalOrders.sundaeCups}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Banana Boats</td>
+                                            <td>$17.50</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.bananaBoats}}</td>
+                                            <td>{{totalOrders.bananaBoats}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Lids</td>
+                                            <td>$5.25</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.lids}}</td>
+                                            <td>{{totalOrders.lids}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Spoons</td>
+                                            <td>$13.75</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.spoons}}</td>
+                                            <td>{{totalOrders.spoons}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Straws</td>
+                                            <td>$3.25</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.straws}}</td>
+                                            <td>{{totalOrders.straws}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Chocolate Jimmies</td>
+                                            <td>$48.00</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.chocolateJimmies}}</td>
+                                            <td>{{totalOrders.chocolateJimmies}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Rainbow Jimmies</td>
+                                            <td>$43.00</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.rainbowJimmies}}</td>
+                                            <td>{{totalOrders.rainbowJimmies}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>6% Vanilla Mix</td>
+                                            <td>$44.75</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.vanillaMix}}</td>
+                                            <td>{{totalOrders.vanillaMix}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Fat Vanilla Mix</td>
+                                            <td>$44.75</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.fatVanillaMix}}</td>
+                                            <td>{{totalOrders.fatVanillaMix}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Bananas Bunch</td>
+                                            <td>$1.50</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.bananasBunch}}</td>
+                                            <td>{{totalOrders.bananasBunch}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Napkins</td>
+                                            <td>$2.00</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.napkins}}</td>
+                                            <td>{{totalOrders.napkins}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Milk</td>
+                                            <td>$3.50</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.milk}}</td>
+                                            <td>{{totalOrders.milk}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Bomb Pop RWB</td>
+                                            <td>$8.50</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.rwbBombPop}}</td>
+                                            <td>{{totalOrders.rwbBombPop}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Bomb Pop Jolly Rancher</td>
+                                            <td>$8.50</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.jollyRancherBombPop}}</td>
+                                            <td>{{totalOrders.jollyRancherBombPop}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Jolly Rancher Snowcone</td>
+                                            <td>$8.75</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.jollyRancherSnowcone}}</td>
+                                            <td>{{totalOrders.jollyRancherSnowcone}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Screwball Cherry</td>
+                                            <td>$14.00</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.screwballCherry}}</td>
+                                            <td>{{totalOrders.screwballCherry}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Face Bratz</td>
+                                            <td>$9.00</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.faceBratz}}</td>
+                                            <td>{{totalOrders.faceBratz}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Face Sonic</td>
+                                            <td>$9.00</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.faceSonic}}</td>
+                                            <td>{{totalOrders.faceSonic}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Minion</td>
+                                            <td>$9.00</td>
+                                            <td ng-repeat="order in allDailyOrders">{{order.minion}}</td>
+                                            <td>{{totalOrders.minion}}</td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                    <div class="clearfix"></div>
+                                    <div class="form-group col-lg-12">
+                                        <label>Message</label>
+                                        <textarea class="form-control" id="message" rows="6"></textarea>
+                                    </div>
+
+                                    <div class="form-group col-lg-12">
+                                        <input type="hidden" name="save" value="contact">
+                                        <button id="submit" class="btn btn-default">Submit</button>
+
+                                    </div>
+                                </form>
+
+
+                                <footer class="footer">
+                                    <div class="container-fluid">
+
+                                        <p class="copyright pull-right">
+                                            &copy; 2015 Super Softee
+                                        </p>
+                                    </div>
+                                </footer>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
+        integrity="sha256-Sk3nkD6mLTMOF0EOpNtsIry+s1CsaqQC1rVLTAy+0yc= sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ=="
+        crossorigin="anonymous"></script>
+
+<!--  Checkbox, Radio & Switch Plugins -->
+<script src="../js/bootstrap-checkbox-radio-switch.js"></script>
+
+<!--  Charts Plugin -->
+<script src="../js/chartist.min.js"></script>
+
+<!--  Notifications Plugin    -->
+<script src="../js/bootstrap-notify.js"></script>
+
+<!--  Google Maps Plugin    -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+<!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+<script src="../js/light-bootstrap-dashboard.js"></script>
+
+<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+<script src="../js/demo.js"></script>
+
+<!--Angular-->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.2/angular.js"></script>
+
+<!--Angular Routes-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.2/angular-route.min.js"></script>
+
+<!-- Use Lodash help functions -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
+
+<!--Our JS-->
+<script src="../js/controllers.js"></script>
+
+</html>

@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="../../../../Desktop/dashboard/assets/img/favicon.ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Hello, Truck Driver</title>
+
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+
+    <!-- Bootstrap Core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+
+    <!-- Animation library for notifications   -->
+    <link href="../css/animate.min.css" rel="stylesheet"/>
+
+    <!--  Light Bootstrap Table core CSS    -->
+    <link href="../css/light-bootstrap-dashboard.css" rel="stylesheet"/>
+
+
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <link href="../css/demo.css" rel="stylesheet" />
+
+    <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="../css/pe-icon-7-stroke.css" rel="stylesheet" />
+</head>
+<body ng-app="ssApp">
+
+<div class="wrapper">
+    <div class="sidebar" data-color="blue" data-image="assets/img/sidebar-5.jpg">
+
+        <!--
+
+        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+        Tip 2: you can also add an image using data-image tag
+
+        -->
+
+        <div class="sidebar-wrapper" ng-controller="sidebarCtrl">
+            <div class="logo">
+                <a href="" class="simple-text">
+                    Welcome {{userInfo.type + " " + userInfo.name}}
+
+                    <img ng-src="{{userInfo.avatarUrl}}" class="img-responsive center-block"
+                         style="border-width: 4px !important; border-style: solid; border-color: #42d0ed ;" />
+                </a>
+            </div>
+
+            <ul class="nav">
+                <li>
+                    <a href="truckDriverDashboard.html">
+                        <i class="pe-7s-graph"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="tabletruckdriver.html">
+                        <i class="pe-7s-note2"></i>
+                        <p>Approved Events</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="orderSupply.html">
+                        <i class="pe-7s-note2"></i>
+                        <p>Supply History</p>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="ordersupplyplaced.html">
+                        <i class="pe-7s-note2"></i>
+                        <p>Order Supply</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-panel">
+        <nav class="navbar navbar-default navbar-fixed">
+            <div class="container-fluid">
+
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="user.html">
+                                Account
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/auth/logout">
+                                Log out
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Order Suppliment list</h4>
+                                <p class="category">Make an order for tomorrow</p>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+
+                                <form role="form" action="/orderSupply">
+
+                                    <table class="table table-hover table-striped">
+                                        <thead>
+                                        <th>ID</th>
+                                        <th>Name Of Pruduct</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        </thead>
+                                        <tbody>
+
+
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Small Flat Cones(Kid Cone)</th>
+                                            <td>$6.50</td>
+                                            <td><input type="number" min = "0"  id="kidCone" name="kidCone" class="form-control"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Small Pointed Cones</td>
+                                            <td>$14.50</td>
+                                            <td><input type="number" min = "0"  id="smallCones" name="smallCones" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Twin Cones (Double Cone)</td>
+                                            <td>$14.50</td>
+                                            <td><input type="number" min = "0"  id="doubleCone" name="doubleCone" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>4</td>
+                                            <td>Waffle Cones</td>
+                                            <td>$6.00</td>
+                                            <td><input type="number" min = "0" id="waffleCones" name="waffleCones" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>5</td>
+                                            <td>Cartwheels</td>
+                                            <td>$5.00</td>
+                                            <td><input type="number" min = "0" id="cartweels" name="cartweels" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>6</td>
+                                            <td>Simple Syrup</td>
+                                            <td>$12.00</td>
+                                            <td><input type="number" min = "0"  id="simpleSyrup" name="simpleSyrup" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>7</td>
+                                            <td>Chocolate Syrup</td>
+                                            <td>$15.00</td>
+                                            <td><input type="number" min = "0"  id="chocolateSyrup" name="chocolateSyrup" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>8</td>
+                                            <td>Vanilla Syrup</td>
+                                            <td>$13.50</td>
+                                            <td><input type="number" min = "0" id="vanillaSyrup" name="vanillaSyrup" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>9</td>
+                                            <td>Strawberry Shake</td>
+                                            <td>$17.50</td>
+                                            <td><input type="number" min = "0" id="strawberryShakeBase" name="strawberryShakeBase" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>10</td>
+                                            <td>Wet Walnuts</td>
+                                            <td>$29.00</td>
+                                            <td><input type="number" min = "0" id="wetWalnuts" name="wetWalnuts" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>11</td>
+                                            <td>Whole Cherries</td>
+                                            <td>$18.50</td>
+                                            <td><input type="number" min = "0"  id="wholeCherries" name="wholeCherries" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>12</td>
+                                            <td>Topping Strawberry</td>
+                                            <td>$17.50</td>
+                                            <td><input type="number" min = "0" id="toppingStrawberry" name="toppingStrawberry" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>13</td>
+                                            <td>Topping Pineapple</td>
+                                            <td>$16.25</td>
+                                            <td><input type="number" min = "0" id="toppingPineapple" name="toppingPineapple" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>14</td>
+                                            <td>Topping Butterscotch</td>
+                                            <td>$16.00</td>
+                                            <td><input type="number" min = "0" id="toppingButterscotch" name="toppingButterscotch" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>15</td>
+                                            <td>Topping Cruched Cherry</td>
+                                            <td>$17.00</td>
+                                            <td><input type="number" min = "0" id="toppingCruchedCherry" name="toppingCruchedCherry" class="form-control"></td>
+                                        </tr>
+
+
+
+
+                                        <tr>
+                                            <td>16</td>
+                                            <td>3 oz Dixie Cups</td>
+                                            <td>$5.00</td>
+                                            <td><input type="number" min = "0"  id="smallDixieCups" name="smallDixieCups" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>17</td>
+                                            <td>5 oz Dixie Cups</td>
+                                            <td>$5.50</td>
+                                            <td><input type="number" min = "0" id="largeDixieCups" name="largeDixieCups" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>18</td>
+                                            <td>12 oz Cups</td>
+                                            <td>$6.00</td>
+                                            <td><input type="number" min = "0"  id="ozCups" name="ozCups" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>19</td>
+                                            <td>Milk Shake Cups</td>
+                                            <td>$6.50</td>
+                                            <td><input type="number" min = "0" id="milkShakeCups" name="milkShakeCups" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>20</td>
+                                            <td>Sundae Cups</td>
+                                            <td>$10.50</td>
+                                            <td><input type="number" min = "0"  id="sundaeCups" name="sundaeCups" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>21</td>
+                                            <td>Banana Boats</td>
+                                            <td>$17.50</td>
+                                            <td><input type="number" min = "0"  id="bananaBoats" name="bananaBoats" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>22</td>
+                                            <td>Lids</td>
+                                            <td>$5.25</td>
+                                            <td><input type="number" min = "0" id="lids" name="lids" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>23</td>
+                                            <td>Spoons</td>
+                                            <td>$13.75</td>
+                                            <td><input type="number" min = "0" id="spoons" name="spoons" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>24</td>
+                                            <td>Straws</td>
+                                            <td>$3.25</td>
+                                            <td><input type="number"min = "0" id="straws" name="straws" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>25</td>
+                                            <td>Chocolate Jimmies</td>
+                                            <td>$48.00</td>
+                                            <td><input type="number" min = "0" id="chocolateJimmies" name="chocolateJimmies" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>26</td>
+                                            <td>Rainbow Jimmies</td>
+                                            <td>$43.00</td>
+                                            <td><input type="number" min = "0" id="rainbowJimmies" name="rainbowJimmies" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>27</td>
+                                            <td>6% Vanilla Mix</td>
+                                            <td>$44.75</td>
+                                            <td><input type="number" min = "0" id="vanillaMix" name="vanillaMix" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>28</td>
+                                            <td>Fat Vanilla Mix</td>
+                                            <td>$44.75</td>
+                                            <td><input type="number" min = "0"  id="fatVanillaMix" name="fatVanillaMix" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>29</td>
+                                            <td>Bananas Bunch</td>
+                                            <td>$1.50</td>
+                                            <td><input type="number" min = "0" id="bananasBunch" name="bananasBunch" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>30</td>
+                                            <td>Napkins</td>
+                                            <td>$2.00</td>
+                                            <td><input type="number" min = "0"  id="napkins" name="napkins" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>31</td>
+                                            <td>Milk</td>
+                                            <td>$3.50</td>
+                                            <td><input type="number" min = "0" id="milk" name="milk" class="form-control"></td>
+                                        </tr>
+
+
+
+                                        <tr>
+                                            <td>32</td>
+                                            <td>Bomb Pop RWB</td>
+                                            <td>$8.50</td>
+                                            <td><input type="number" min = "0"  id="rwbBombPop" name="rwbBombPop" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>33</td>
+                                            <td>Bomb Pop Jolly Rancher</td>
+                                            <td>$8.50</td>
+                                            <td><input type="number" min = "0" id="jollyRancherBombPop" name="jollyRancherBombPop" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>34</td>
+                                            <td>Jolly Rancher Snowcone</td>
+                                            <td>$8.75</td>
+                                            <td><input type="number" min = "0" id="jollyRancherSnowcone" name="jollyRancherSnowcone" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>35</td>
+                                            <td>Screwball Cherry</td>
+                                            <td>$14.00</td>
+                                            <td><input type="number" min = "0" id="screwballCherry" name="screwballCherry" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>36</td>
+                                            <td>Face Bratz</td>
+                                            <td>$9.00</td>
+                                            <td><input type="number" min = "0" id="faceBratz" name="faceBratz" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>37</td>
+                                            <td>Face Sonic</td>
+                                            <td>$9.00</td>
+                                            <td><input type="number"min = "0"  id="faceSonic" name="faceSonic" class="form-control"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>38</td>
+                                            <td>Minion</td>
+                                            <td>$9.00</td>
+                                            <td><input type="number" min = "0" id="minion" name="minion" class="form-control"></td>
+                                        </tr>
+
+
+                                        </tbody>
+                                    </table>
+
+                                    <div class="clearfix"></div>
+                                    <div class="form-group col-lg-12">
+                                        <label>Message</label>
+                                        <textarea class="form-control" id="message" name="message" rows="6"></textarea>
+                                    </div>
+
+                                    <div class="form-group col-lg-12">
+                                        <input type="hidden" name="save" value="contact">
+                                        <button id="submit" class="btn btn-default">Submit</button>
+
+                                    </div>
+                                </form>
+
+
+                                <footer class="footer">
+                                    <div class="container-fluid">
+
+                                        <p class="copyright pull-right">
+                                            &copy; 2015 Super Softee
+                                        </p>
+                                    </div>
+                                </footer>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
+        integrity="sha256-Sk3nkD6mLTMOF0EOpNtsIry+s1CsaqQC1rVLTAy+0yc= sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ=="
+        crossorigin="anonymous"></script>
+
+<!--  Checkbox, Radio & Switch Plugins -->
+<script src="../js/bootstrap-checkbox-radio-switch.js"></script>
+
+<!--  Charts Plugin -->
+<script src="../js/chartist.min.js"></script>
+
+<!--  Notifications Plugin    -->
+<script src="../js/bootstrap-notify.js"></script>
+
+<!--  Google Maps Plugin    -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+<!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+<script src="../js/light-bootstrap-dashboard.js"></script>
+
+
+<!--Angular-->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.2/angular.js"></script>
+
+<!--Angular Routes-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.2/angular-route.min.js"></script>
+
+<!--Our JS-->
+<script src="../js/controllers.js"></script>
+
+</html>

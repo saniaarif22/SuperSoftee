@@ -1,0 +1,39 @@
+
+# Customer, Manager and Truck Driver related routes
+GET         /                                 @controllers.Assets.at(path="/public/html", file="index.html")
+
+GET         /enterfeedback                    @controllers.ApplicationFeedback.enterFeedback()
+GET         /getfeedbacks                     @controllers.ApplicationFeedback.getFeedbacks()
+
+GET         /enterorder                       @controllers.ApplicationOrder.enterOrder()
+GET         /getorders                        @controllers.ApplicationOrder.getOrders()
+
+GET         /getapprovedorders                @controllers.ApplicationOrder.getApprovedOrders()
+POST        /approveOrder/*id                 @controllers.ApplicationOrder.approveOrder(id)
+
+GET         /getfinishedorders                @controllers.ApplicationOrder.getFinishedOrders()
+POST        /finishOrder/*id                  @controllers.ApplicationOrder.finishOrder(id)
+
+GET         /orderSupply                      @controllers.Application.enterOrderSupply()
+GET         /getordersupplies                 @controllers.Application.getOrderSupplies()
+
+
+# Credential management
+GET         /insertManagerEmail               @controllers.Application.insertManagerEmail()
+GET         /insertDriverEmail                @controllers.Application.insertDriverEmail()
+GET         /getDriverEmails                  @controllers.Application.getDriverEmails()
+GET         /getManagerEmails                 @controllers.Application.getManagerEmails()
+POST        /removeDriverEmail/*email         @controllers.Application.removeDriverEmail(email)
+POST        /removeManagerEmail/*email        @controllers.Application.removeManagerEmail(email)
+
+
+# Static resources
+GET         /assets/*file                     @controllers.Assets.at(path="/public", file)
+
+
+# Secure social
+GET         /authAction                       @controllers.Application.authAction()
+GET         /getUserInfo                      @controllers.Application.getUserInfo()
+->          /auth                             securesocial.Routes
+
+
